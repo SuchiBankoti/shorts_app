@@ -29,26 +29,10 @@ function App() {
         setCurrent((prev) => (e.key === 'ArrowUp' ? (prev === 0 ? prev : prev - 1) : prev === videoSrcs.length - 1 ? prev : prev + 1));
       }
     };
-  
-    const handleTouch = (e) => {
-      const touchY = e.touches[0].clientY;
-      const windowMidPoint = window.innerHeight / 2;
-  
-      if (touchY < windowMidPoint) {
-        handleScroll(-window.innerHeight);
-        setCurrent((prev) => (prev === 0 ? prev : prev - 1));
-      } else {
-        handleScroll(window.innerHeight);
-        setCurrent((prev) => (prev === videoSrcs.length - 1 ? prev : prev + 1));
-      }
-    };
-  
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('touchstart', handleTouch);
-  
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('touchstart', handleTouch);
+      
     };
   }, [setCurrent, videoSrcs]);
   
