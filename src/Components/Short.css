@@ -33,6 +33,7 @@ video{
     .video-box {
       width: 100vw;
       padding: 10px;
+      scroll-snap-align: center;
     }
     .like-btn{
         bottom:15%;
