@@ -7,9 +7,16 @@ export default function Short(props) {
   const videoRef = useRef(null);
   const videoBoxRef=useRef(null)
   const [like, setLike] = useState(false);
-  const [controlsVisible, setControlsVisible] = useState(true);
+  const [controlsVisible, setControlsVisible] = useState(false);
+   
+
 
   useEffect(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  
+    if (isMobile) {
+      setControlsVisible(true)
+    }
     const videoBoxElement = videoBoxRef.current;
     const handleMouseOver = () => {
       setControlsVisible(true);
@@ -43,8 +50,6 @@ export default function Short(props) {
         controls
         className="video"
             ref={videoRef}
-            onTouchStart={() => setControlsVisible(true)}
-            onTouchEnd={() => setControlsVisible(false)}
         autoPlay         
       >
         <source src={src} type="video/mp4" />

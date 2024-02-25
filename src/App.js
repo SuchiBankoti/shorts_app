@@ -36,6 +36,47 @@ function App() {
     };
   }, [setCurrent, videoSrcs]);
   
+  // for mobile
+  
+  useEffect(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  
+    if (isMobile) {
+      let startY;
+  
+      const handleScroll = (offset) => {
+        window.scrollBy(0, offset);
+      };
+  
+      const handleTouchStart = (e) => {
+        startY = e.touches[0].clientY;
+      };
+  
+      const handleTouchMove = (e) => {
+        const currentY = e.touches[0].clientY;
+        const deltaY = startY - currentY;
+  
+        if (deltaY > 50) {
+          handleScroll(-window.innerHeight);
+          setCurrent((prev) => (prev === 0 ? prev : prev - 1));
+        } else if (deltaY < -50) {
+          handleScroll(window.innerHeight);
+          setCurrent((prev) => (prev === videoSrcs.length - 1 ? prev : prev + 1));
+        }
+      };
+  
+      window.addEventListener('touchstart', handleTouchStart);
+      window.addEventListener('touchmove', handleTouchMove);
+  
+      return () => {
+        window.removeEventListener('touchstart', handleTouchStart);
+        window.removeEventListener('touchmove', handleTouchMove);
+      };
+    }
+  }, [setCurrent, videoSrcs]);
+  
+  
+
   return (
     <>
       {open && <Welcome setOpen={setOpen}/>}
