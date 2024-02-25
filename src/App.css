@@ -1,0 +1,32 @@
+.App{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    background-color: black;
+    align-items: center;
+    padding: 10px 10px;
+    box-sizing: border-box;
+}
+.welcome-page{
+    width: 100vw;
+    height: 100vh;
+    translate:all 0.3s ease-in-out;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.welcome-text{
+    padding: 10px;
+    border: 1px solid white;
+    box-sizing: border-box;
+    font-family: monospace;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 600;
+    font-size: 25px;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #00f, 0 0 70px #00f, 0 0 80px #00f, 0 0 100px #00f, 0 0 150px #00f;
+
+}

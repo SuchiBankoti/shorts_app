@@ -1,0 +1,44 @@
+.video-box{
+    width: 500px;
+    height: calc(100vh - 25px);
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: relative;
+    
+}
+video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.like-btn{
+    position: absolute;
+    bottom: 10%;
+    right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+}
+.title{
+    position: absolute;
+    bottom: 10%;
+    left: 15px;
+    font-size: 18px;
+    color: white;
+    text-transform: capitalize;
+    font-family: monospace;
+    font-weight: 600;
+}
+@media only screen and (max-width: 500px) {
+    .video-box {
+      width: 100vw;
+      padding: 10px;
+    }
+    .like-btn{
+        right: 25px;
+        font-size: 20px;
+    }
+    .title{
+        left: 25px;
+    }
+  }
