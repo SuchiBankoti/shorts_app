@@ -30,28 +30,44 @@ function App() {
       }
     };
   
-    const handleTouch = (e) => {
-      const touchY = e.touches[0].clientY;
-      const windowMidPoint = window.innerHeight / 2;
-  
-      if (touchY < windowMidPoint) {
-        handleScroll(window.innerHeight/2);
-        setCurrent((prev) => (prev === 0 ? prev : prev - 1));
-      } else {
-        handleScroll(-window.innerHeight/2);
-        setCurrent((prev) => (prev === videoSrcs.length - 1 ? prev : prev + 1));
-      }
-    };
-  
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('touchmove',handleTouch)
   
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('touchmove',handleTouch);
     };
   }, [setCurrent]);
   
+
+  useEffect(() => {
+    let touchStartY = 0;
+    let initialPosition = 0;
+    let currentPosition = 0;
+    const handleTouchMove = (e) => {
+      const touchMoveY = e.touches[0].clientY;
+      const deltaY = touchMoveY - touchStartY;
+
+      setCurrent((prev) => (deltaY > 0 ? (prev === videoSrcs.length - 1 ? prev : prev + 1) : (prev === 0 ? prev : prev - 1)));
+    };
+    
+
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+      initialPosition = currentPosition; 
+      window.addEventListener('touchmove', handleTouchMove);
+    };
+
+    const handleTouchEnd = () => {
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [setCurrent]);
+
 
   return (
     <>

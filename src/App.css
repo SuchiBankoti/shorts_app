@@ -33,7 +33,7 @@
 
 @media only screen and (max-width: 500px) {
     .App{
-        scroll-snap-type: x mandatory;
+        scroll-snap-type: y mandatory;
         padding: 5px;
 
     }
