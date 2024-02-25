@@ -56,10 +56,10 @@ function App() {
         const currentY = e.touches[0].clientY;
         const deltaY = startY - currentY;
   
-        if (deltaY > 50) {
+        if (deltaY < 50) {
           handleScroll(-window.innerHeight);
           setCurrent((prev) => (prev === 0 ? prev : prev - 1));
-        } else if (deltaY < -50) {
+        } else {
           handleScroll(window.innerHeight);
           setCurrent((prev) => (prev === videoSrcs.length - 1 ? prev : prev + 1));
         }
