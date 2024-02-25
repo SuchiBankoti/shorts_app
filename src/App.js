@@ -35,10 +35,10 @@ function App() {
       const windowMidPoint = window.innerHeight / 2;
   
       if (touchY < windowMidPoint) {
-        handleScroll(-window.innerHeight);
+        handleScroll(-window.innerHeight/2);
         setCurrent((prev) => (prev === 0 ? prev : prev - 1));
       } else {
-        handleScroll(window.innerHeight);
+        handleScroll(window.innerHeight/2);
         setCurrent((prev) => (prev === videoSrcs.length - 1 ? prev : prev + 1));
       }
     };
