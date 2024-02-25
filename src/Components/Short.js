@@ -7,7 +7,7 @@ export default function Short(props) {
   const videoRef = useRef(null);
   const videoBoxRef=useRef(null)
   const [like, setLike] = useState(false);
-  const [controlsVisible, setControlsVisible] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true);
 
   useEffect(() => {
     const videoBoxElement = videoBoxRef.current;
@@ -21,16 +21,6 @@ export default function Short(props) {
     videoBoxElement.addEventListener("mouseover", handleMouseOver);
     videoBoxElement.addEventListener("mouseout", handleMouseOut);
 
-    const handleTouchStart = () => {
-      setControlsVisible(true);
-    };
-
-    const handleTouchEnd = () => {
-      setControlsVisible(false);
-    };
-
-    videoBoxElement.addEventListener("touchstart", handleTouchStart);
-    videoBoxElement.addEventListener("touchend", handleTouchEnd);
   }, []);
   
 
