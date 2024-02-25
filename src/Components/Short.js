@@ -21,30 +21,56 @@ export default function Short(props) {
     videoBoxElement.addEventListener("mouseover", handleMouseOver);
     videoBoxElement.addEventListener("mouseout", handleMouseOut);
 
+    const handleTouchStart = () => {
+      setControlsVisible(true);
+    };
+
+    const handleTouchEnd = () => {
+      setControlsVisible(false);
+    };
+
+    videoBoxElement.addEventListener("touchstart", handleTouchStart);
+    videoBoxElement.addEventListener("touchend", handleTouchEnd);
   }, []);
+  
 
   useEffect(() => {
     const videoElement = videoRef.current;
-    console.log(videoElement)
     if (i === current && videoElement) {
       videoElement.play();
     } else {
       videoElement.pause();
+      videoElement.currentTime = 0
     }
   }, [i, current]);
 
     
   return (
     <div className="video-box" ref={videoBoxRef}>
-      <video
+      {
+        window.innerWidth < 500 ?
+        <video
         controls
         className="video"
-        ref={videoRef}
-        onMouseOver={() => setControlsVisible(true)}
-        onMouseOut={() => setControlsVisible(false)}
+            ref={videoRef}
+            onTouchStart={() => setControlsVisible(true)}
+            onTouchEnd={() => setControlsVisible(false)}
+        autoPlay         
       >
         <source src={src} type="video/mp4" />
-      </video>
+          </video> :
+           <video
+           controls
+           className="video"
+           ref={videoRef}
+           onMouseOver={() => setControlsVisible(true)}
+           onMouseOut={() => setControlsVisible(false)}
+         >
+           <source src={src} type="video/mp4" />
+         </video>
+          
+       }      
+        
       <FaThumbsUp
         onClick={() => setLike(prev => !prev)}
         className="like-btn"
