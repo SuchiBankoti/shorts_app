@@ -34,46 +34,34 @@ function App() {
       window.removeEventListener('keydown', handleKeyDown);
       
     };
-  }, [setCurrent, videoSrcs]);
+  }, [setCurrent]);
   
   // for mobile
   
   useEffect(() => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const handleScroll = (offset) => {
+      window.scrollBy(0, offset);
+    };
   
-    if (isMobile) {
-      let startY;
+    const handleWheel = (e) => {
+      const offset = e.deltaY > 0 ? window.innerHeight - 20 : -window.innerHeight + 20;
+      handleScroll(offset);
+      setCurrent((prev) =>
+        e.deltaY > 0
+          ? prev === videoSrcs.length - 1
+            ? prev
+            : prev + 1
+          : prev === 0
+          ? prev
+          : prev - 1
+      );
+    };
+    window.addEventListener('wheel', handleWheel);
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [setCurrent]);
   
-      const handleScroll = (offset) => {
-        window.scrollBy(0, offset);
-      };
-  
-      const handleTouchStart = (e) => {
-        startY = e.touches[0].clientY;
-      };
-  
-      const handleTouchMove = (e) => {
-        const currentY = e.touches[0].clientY;
-        const deltaY = startY - currentY;
-  
-        if (deltaY < 50) {
-          handleScroll(-window.innerHeight);
-          setCurrent((prev) => (prev === 0 ? prev : prev - 1));
-        } else {
-          handleScroll(window.innerHeight);
-          setCurrent((prev) => (prev === videoSrcs.length - 1 ? prev : prev + 1));
-        }
-      };
-  
-      window.addEventListener('touchstart', handleTouchStart);
-      window.addEventListener('touchmove', handleTouchMove);
-  
-      return () => {
-        window.removeEventListener('touchstart', handleTouchStart);
-        window.removeEventListener('touchmove', handleTouchMove);
-      };
-    }
-  }, [setCurrent, videoSrcs]);
   
   
 
